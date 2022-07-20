@@ -144,23 +144,32 @@ class Renderer(object):
 					y += 1
 					limit += 1
 
-	def glFill(self, polygon):
-		for y in range(self.height):
- 			for x in range(self.width): 
- 				i = 0
-				j = len(polygon)-1
-				result = False
-				for i in range(len(polygon)):
-					if (polygon[i][1] < y and polygon[j][1] >= y) or (polygon[j][1] < y and polygon[i][1] >= y):
-					if polygon[i][0] + (y - polygon[i][1]) / (polygon[j][1] - polygon[i][1]) * (polygon[j][0] - polygon[i][0]) < x:
-		result = not result
- j = i
- #Si el resultado es True entonces se pinta el punto 
- if result == True:
- self.glPoint((float(x)/(float(self.width)/2))-1,
-(float(y)/(float(self.height)/2))-1,self.vertexColor)
- else:
- pass
+	# def glFill(self, polygon):
+# 		for y in range(self.height):
+#  for x in range(self.width): 
+#  i = 0
+#  j = len(polygon) - 1
+#  result = False
+#  #Se realiza un ciclo que revisa si el punto siempre se 
+# encuentra entre los limites de los vertices planteados
+#  for i in range(len(polygon)):
+#  #Si el poligono se encuentra dentro de los limites 
+# la variable resultado esta dentro de los limites obtiene un valor True 
+#  if (polygon[i][1] < y and polygon[j][1] >= y) or 
+# (polygon[j][1] < y and polygon[i][1] >= y):
+#  if polygon[i][0] + (y - polygon[i][1]) / 
+# (polygon[j][1] - polygon[i][1]) * (polygon[j][0] - polygon[i][0]) < x:
+#  result = not result
+#  j = i
+#  #Si el resultado es True entonces se pinta el punto 
+#  if result == True:
+#  self.glPoint((float(x)/(float(self.width)/2))-1,
+# (float(y)/(float(self.height)/2))-1,self.vertexColor)
+#  else:
+#  pass
+
+
+
  
 	def glFinish(self, filename):
 				file = open(filename, 'wb')
@@ -183,6 +192,6 @@ class Renderer(object):
 				file.write(dword(0))
 				file.write(dword(0))
 				for x in range(self.height):
-				for y in range(self.width):
-				file.write(self.pixels[x][y])
+					for y in range(self.width):
+						file.write(self.pixels[x][y])
 				file.close()
